@@ -16,10 +16,21 @@ def get_fact():
 
     return facts[0].getText()
 
-
+# TODO:
 @app.route('/')
 def home():
-    return "FILL ME!"
+    # The url that contains pig-latin web application
+    url = "https://hidden-journey-62459.herokuapp.com/piglatinize/" 
+
+    fact = get_fact().strip()
+    payload = {"input_text": fact}
+    response = requests.post(url=url, data=payload, allow_redirects=False)
+
+    response_url = response.headers['location']
+
+    text = f'<a href={response_url}>{response_url}</a>'
+
+    return text
 
 
 if __name__ == "__main__":
